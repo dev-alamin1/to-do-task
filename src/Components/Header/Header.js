@@ -7,6 +7,7 @@ import {
   Button,
   IconButton,
 } from "@material-tailwind/react";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const [openNav, setOpenNav] = useState(false);
@@ -26,9 +27,9 @@ const Header = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
-          Pages
-        </a>
+        <Link href="#" className="flex items-center">
+          Add Task
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -36,48 +37,60 @@ const Header = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
-          Account
-        </a>
+        <Link href="#" className="flex items-center">
+          My Task
+        </Link>
       </Typography>
+
       <Typography
         as="li"
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
+        <Link href="#" className="flex items-center">
+           Complete Task
+        </Link>
       </Typography>
+
       <Typography
         as="li"
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
-          Docs
-        </a>
+        <Button variant="gradient" size='sm'  className="">
+           Login
+        </Button>
+
+        
       </Typography>
+
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+         <Link><Button variant="gradient" size='sm' className="">
+           Register
+        </Button></Link>
+      </Typography>
+
+     
     </ul>
   );
  
   return (
     <Navbar className="mx-auto  py-2  lg:py-4">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          variant="small"
-          className="mr-4 cursor-pointer py-1.5 font-normal"
-        >
-          <span>Material Tailwind</span>
-        </Typography>
+         <Link to={"/"}>To-do Task</Link>
         <div className="hidden lg:block">{navList}</div>
-        <Button variant="gradient" size="sm" className="hidden lg:inline-block">
-          <span>Buy Now</span>
-        </Button>
+
+        
+
+
+
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
