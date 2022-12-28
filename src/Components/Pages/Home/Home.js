@@ -5,7 +5,7 @@ import HomePageTaskCard from '../../Cards/HomePageTaskCard';
 
 const Home = () => {
     return (
-        <div className='flex justify-center items-center h-screen'>
+        <div className='flex justify-center items-center'>
            <HomePageTaskCard/>
         </div>
     );
