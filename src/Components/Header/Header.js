@@ -37,7 +37,7 @@ const Header = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link href="#" className="flex items-center">
+        <Link to={'/my-task'} className="flex items-center">
           My Task
         </Link>
       </Typography>
@@ -48,7 +48,7 @@ const Header = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link href="#" className="flex items-center">
+        <Link to={"/complete-task"} className="flex items-center">
            Complete Task
         </Link>
       </Typography>

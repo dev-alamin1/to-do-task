@@ -11,6 +11,11 @@ import {
 } from "@material-tailwind/react";
 
 const HomePageTaskCard = () => {
+
+    const submitHanlder = (e)=>{
+            e.preventDefault();
+            console.log(e.target.taskname.value)
+    }
   return (
     <Card className="w-96 mt-10">
       <CardHeader
@@ -24,8 +29,8 @@ const HomePageTaskCard = () => {
       </CardHeader>
       <CardBody className="flex flex-col gap-4">
        
-       <form>
-           <Input label="type task name" name="taskName" size="lg" />
+       <form onSubmit={submitHanlder}>
+            <Input type="text" label="Task name" name="taskname"  className="w-full" />
        </form>
     
       </CardBody>

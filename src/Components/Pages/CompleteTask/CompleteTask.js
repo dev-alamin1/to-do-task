@@ -1,10 +1,10 @@
 import React from 'react';
 
-const MyTask = () => {
+const CompleteTask = () => {
     return (
         <div className='px-10 md:px-20 w-screen md:w-3/5 mx-auto'>
 
-            <h2 className='text-center mt-10'>My Task</h2>
+            <h2 className='text-center mt-10'>Complete Task</h2>
             <div className="overflow-x-auto mt-10">
   <table className="table w-full">
    
@@ -45,4 +45,4 @@ const MyTask = () => {
     );
 };
 
-export default MyTask;
+export default CompleteTask;
