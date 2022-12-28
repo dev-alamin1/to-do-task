@@ -27,7 +27,7 @@ const Header = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link href="#" className="flex items-center">
+        <Link to={'/add-task'} className="flex items-center">
           Add Task
         </Link>
       </Typography>
