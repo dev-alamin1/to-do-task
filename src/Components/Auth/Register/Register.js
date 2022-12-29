@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -9,14 +9,16 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { AuthContext } from "../../../Context/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Register = () => {
 
     const {registerWithEmailPassword} = useContext(AuthContext);
+    const [registerError,setRegisterError]= useState("");
 
     const submitHandler= (e)=>{
         e.preventDefault();
-
+         setRegisterError("");
          const form = e.target;
          const email = form.email.value;
          const password = form.password.value;
@@ -28,6 +30,7 @@ const Register = () => {
          })
          .catch(error=>{
             console.log(error.message);
+            setRegisterError(error.message)
          });
 
 
@@ -57,18 +60,22 @@ const Register = () => {
           <Button type="submit" variant="gradient" fullWidth>
             Register
           </Button>
+
           <Typography variant="small" className="mt-6 flex justify-center">
             Already have an account?
-            <Typography
-              as="a"
-              href="#signup"
-              variant="small"
-              color="blue"
-              className="ml-1 font-bold"
-            >
-              Login
-            </Typography>
+            
+              <Link className="text-blue-500 font-semibold" to="/login">Login</Link>
+           
           </Typography>
+
+          {
+            registerError && 
+            <Typography variant="small" className="mt-6 flex justify-center text-red-500">
+            {registerError}
+           
+          </Typography>
+          }
+
         </CardFooter>
 
         </form>

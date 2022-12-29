@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -8,16 +8,31 @@ import {
   Input,
   Button,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../Context/AuthProvider";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
 
+    const {loginUserWithEmailPassword} = useContext(AuthContext);
+    const [loginError,setLoginError] = useState("");
+    const navigate = useNavigate();
     const submitHandler= (e)=>{
         e.preventDefault();
+        setLoginError("");
 
          const form = e.target;
          const email = form.email.value;
          const password = form.password.value;
+
+         loginUserWithEmailPassword(email,password)
+         .then(result=>{
+            toast.success("Login Success");
+            navigate('/');
+         })
+         .catch(error=>{
+            setLoginError(error.message)
+         });
 
     }
 
@@ -33,29 +48,32 @@ const Login = () => {
             Log In
           </Typography>
         </CardHeader>
+
         <form onSubmit={submitHandler}>
 
       
         <CardBody className="flex flex-col gap-4">
-          <Input label="Email" name="email" size="lg" />
-          <Input label="Password" name="password" size="lg" />
+          <Input label="Email" type="email" name="email" size="lg" />
+          <Input label="Password" type="password" name="password" size="lg" />
         </CardBody>
         <CardFooter className="pt-0">
-          <Button variant="gradient" fullWidth>
+          <Button type="submit" variant="gradient" fullWidth>
             Log In
           </Button>
           <Typography variant="small" className="mt-6 flex justify-center">
             Don't have an account?
-            <Typography
-              as="a"
-              href="#signup"
-              variant="small"
-              color="blue"
-              className="ml-1 font-bold"
-            >
-              <Link to="/register">Register </Link>
-            </Typography>
+            
+              <Link className="text-blue-500 font-semibold" to="/register">Register </Link>
+            
           </Typography>
+
+          {
+            loginError && 
+            <Typography variant="small" className="mt-6 flex justify-center text-red-500">
+            {loginError}
+           
+          </Typography>
+          }
         </CardFooter>
         </form>
       </Card>
