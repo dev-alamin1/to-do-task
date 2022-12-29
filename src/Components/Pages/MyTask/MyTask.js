@@ -9,17 +9,17 @@ import {
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter,
   Card,
-  Typography,
-  CardHeader,
   CardBody,
   Input,
 } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
-const testId= 1;
+
 
 const MyTask = () => {
+
+  const navigate = useNavigate();
   const {
     data: alltask,
     isLoading,
@@ -41,7 +41,9 @@ const MyTask = () => {
       .then((data) => {
         if (data.modifiedCount > 0) {
           toast.success("Task completed Successfully");
-          refetch();
+          // refetch();
+          navigate('/complete-task')
+          
         }
       });
   };

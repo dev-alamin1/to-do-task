@@ -10,8 +10,11 @@ import {
   Checkbox,
 } from "@material-tailwind/react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const HomePageTaskCard = () => {
+
+  const navigate = useNavigate();
 
     const submitHanlder = (e)=>{
             e.preventDefault();
@@ -37,6 +40,7 @@ const HomePageTaskCard = () => {
               {
                 toast.success('task added successfully')
                 form.reset();
+                navigate('/my-task')
               }
             })
     }

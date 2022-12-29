@@ -2,9 +2,12 @@ import { Button } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import Loading from "../../Loading/Loading";
 
 const CompleteTask = () => {
+
+  const navigate = useNavigate();
 
   const {data:alltask,isLoading,refetch} = useQuery({
     queryKey:['alltask'],
@@ -32,6 +35,20 @@ const CompleteTask = () => {
     
 }
 
+// taskNot complete handler 
+  const notCompleteHandler = (id)=>{
+    fetch(`http://localhost:5000/update-not-complete-status/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Task marks as not completed");
+          navigate('/my-task')
+        }
+      });
+  }
+
   if(isLoading)
   {
     return <Loading/>
@@ -42,7 +59,7 @@ const CompleteTask = () => {
 
   return (
     <div className="px-10 md:px-20 w-screen md:w-3/5 mx-auto">
-      <h2 className="text-center mt-10">My Task</h2>
+      <h2 className="text-center mt-10">My Complete Task</h2>
       <div className="overflow-x-auto mt-10">
         <table className="table w-full">
           <thead>
@@ -62,7 +79,7 @@ const CompleteTask = () => {
                         <div className="flex gap-2">
                               
                               <button onClick={()=>deleteHandler(task._id)} className="bg-blue-700 px-2 py-1 rounded-sm text-white hover:bg-blue-900 hover:shadow-md"  size="sm">Delete</button>
-                              <button className="bg-blue-700 px-2 py-1 rounded-sm text-white hover:bg-blue-900 hover:shadow-md"  size="sm">Not completed</button>
+                              <button onClick={()=>notCompleteHandler(task._id)} className="bg-blue-700 px-2 py-1 rounded-sm text-white hover:bg-blue-900 hover:shadow-md"  size="sm">Not completed</button>
 
                            </div>
                         </td>
