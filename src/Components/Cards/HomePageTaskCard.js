@@ -27,7 +27,7 @@ const HomePageTaskCard = () => {
               isComplete:false
             }
 
-            fetch('http://localhost:5000/tasks',{
+            fetch('https://todo-task-list-server.vercel.app/tasks',{
               method:'POST',
               headers:{
                 'content-type':'application/json'

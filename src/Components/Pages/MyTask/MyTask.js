@@ -27,14 +27,14 @@ const MyTask = () => {
   } = useQuery({
     queryKey: ["alltask"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/tasks`);
+      const res = await fetch(`https://todo-task-list-server.vercel.app/tasks`);
       const data = await res.json();
       return data;
     },
   });
 
   const completeHandler = (id) => {
-    fetch(`http://localhost:5000/update-complete-status/${id}`, {
+    fetch(`https://todo-task-list-server.vercel.app/update-complete-status/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -49,7 +49,7 @@ const MyTask = () => {
   };
 
   const deleteHandler = (id) => {
-    fetch(`http://localhost:5000/delete-task/${id}`, {
+    fetch(`https://todo-task-list-server.vercel.app/delete-task/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -67,7 +67,7 @@ const MyTask = () => {
   const editHandler = (id)=>{
       setOpen(!open);
 
-      fetch(`http://localhost:5000/edit-task/${id}`)
+      fetch(`https://todo-task-list-server.vercel.app/edit-task/${id}`)
         .then((res) => res.json())
         .then(data=>setEditTask(data))
        
@@ -98,7 +98,7 @@ const MyTask = () => {
               taskName
            }
 
-        fetch(`http://localhost:5000/update-task/${id}`,{
+        fetch(`https://todo-task-list-server.vercel.app/update-task/${id}`,{
           method:'PUT',
           headers:{
             'content-type':'application/json'
