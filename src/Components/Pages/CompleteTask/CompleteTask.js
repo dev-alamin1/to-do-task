@@ -1,48 +1,81 @@
-import React from 'react';
+import { Button } from "@material-tailwind/react";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
+import { toast } from "react-hot-toast";
+import Loading from "../../Loading/Loading";
 
 const CompleteTask = () => {
-    return (
-        <div className='px-10 md:px-20 w-screen md:w-3/5 mx-auto'>
 
-            <h2 className='text-center mt-10'>Complete Task</h2>
-            <div className="overflow-x-auto mt-10">
-  <table className="table w-full">
-   
-    <thead>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-      </tr>
-    </thead>
-    <tbody>
-     
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-      </tr>
-     
-      <tr className="hover">
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
+  const {data:alltask,isLoading,refetch} = useQuery({
+    queryKey:['alltask'],
+    queryFn: async()=>{
+       const res = await fetch(`http://localhost:5000/complete-tasks`);
+       const data = await res.json();
+       return data;
+    }
+  });
+
+
+  const deleteHandler = (id)=>{
+    fetch(`http://localhost:5000/delete-task/${id}`,{
+      method:'DELETE'
+     })
+     .then(res=>res.json())
+     .then(data=>{
+      if(data.deletedCount>0)
+      {
+        toast.success("Task Delete Successfully")
+        refetch();
+
+      }
+     })
     
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-        </div>
-    );
+}
+
+  if(isLoading)
+  {
+    return <Loading/>
+  }
+
+
+
+
+  return (
+    <div className="px-10 md:px-20 w-screen md:w-3/5 mx-auto">
+      <h2 className="text-center mt-10">My Task</h2>
+      <div className="overflow-x-auto mt-10">
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {alltask.map((task,index)=>{
+              return  <tr>
+                        <th>{index+1}</th>
+                        <td><del>{task.taskName}</del></td>
+                        <td>
+                        <div className="flex gap-2">
+                              
+                              <button onClick={()=>deleteHandler(task._id)} className="bg-blue-700 px-2 py-1 rounded-sm text-white hover:bg-blue-900 hover:shadow-md"  size="sm">Delete</button>
+                              <button className="bg-blue-700 px-2 py-1 rounded-sm text-white hover:bg-blue-900 hover:shadow-md"  size="sm">Not completed</button>
+
+                           </div>
+                        </td>
+                    </tr>
+            })}
+            
+
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default CompleteTask;

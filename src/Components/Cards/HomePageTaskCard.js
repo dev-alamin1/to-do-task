@@ -20,7 +20,8 @@ const HomePageTaskCard = () => {
             const taskName = form.taskname.value;
 
             const taskInfo ={
-              taskName
+              taskName,
+              isComplete:false
             }
 
             fetch('http://localhost:5000/tasks',{
