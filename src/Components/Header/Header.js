@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState, useEffect } from "react";
 import {
   Navbar,
@@ -8,9 +8,22 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Header = () => {
     const [openNav, setOpenNav] = useState(false);
+    const {logOutUser,user} = useContext(AuthContext);
+
+    const logOutHandler = ()=>{
+         logOutUser()
+         .then(()=>{
+            toast.success("Logout success");
+         })
+         .catch((error)=>{
+            console.log(error.message)
+         })
+    }
  
   useEffect(() => {
     window.addEventListener(
@@ -53,30 +66,41 @@ const Header = () => {
         </Link>
       </Typography>
 
+
+      {
+        user?.email ? 
+
       <Typography
         as="li"
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Button variant="gradient" size='sm'  className="">
-           Login
+        <Button onClick={logOutHandler} variant="gradient" size='sm'  className="">
+           Log out
         </Button>
 
         
       </Typography>
+        
+        : 
 
-      <Typography
+        <Typography
         as="li"
         variant="small"
         color="blue-gray"
         className="p-1 font-normal"
       >
-         <Link><Button variant="gradient" size='sm' className="">
-           Register
+        <Link to={'/login'}><Button variant="gradient" size='sm'  className="">
+           Login
         </Button></Link>
+
+        
       </Typography>
 
+      }
+
+      
      
     </ul>
   );
