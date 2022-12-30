@@ -2,7 +2,7 @@ import React from "react";
 
 const AddTaskCard = () => {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center pb-40">
       <div className="flex flex-col w-96 p-6 mt-5 rounded-md sm:p-10 bg-black text-white">
         <div className="mb-8 text-center">
           <h1 className="my-3 text-4xl font-bold">Task</h1>

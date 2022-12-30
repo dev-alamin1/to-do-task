@@ -114,9 +114,6 @@ const MyTask = () => {
           }
         })
           
-
-   
-
   };
 
   if (isLoading) {
@@ -124,94 +121,97 @@ const MyTask = () => {
   }
 
   return (
-    <div className="px-10 md:px-20 w-screen md:w-2/4 mx-auto">
-      <h2 className="text-center mt-10">My Task</h2>
+    <div className="px-5 md:px-20 w-screen md:w-11/12 mx-auto  pb-[400px]">
+      <h2 className="text-center mt-10 text-white font-bold">
+        My Task
+      </h2>
       <div className="overflow-x-auto mt-10">
-        <table className="table w-full">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {alltask?.map((task, index) => {
-              return (
-                <tr>
-                  <th>{index + 1}</th>
-                  <td>{task.taskName}</td>
-                  <td>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={()=>editHandler(task._id)}
-                        className="bg-blue-700 px-2 py-1 rounded-sm text-white hover:bg-blue-900 hover:shadow-md"
-                        size="sm"
-                      >
-                        Edit
-                      </button>
+        <div className="grid grid-cols-1 justify-center md:grid-cols-3 gap-2">
+          {alltask.map((task, index) => {
+            return (
+              <div
+                key={index}
+                className="card mx-auto w-80 md:w-96 bg-base-100 shadow-xl mb-4"
+              >
+                <div className="card-body">
+                  <h2 className="card-title">{task.taskName}</h2>
+                  {task?.comment ? <p>{task.comment}</p> : <p></p>}
+                  <div className="card-actions">
+
+                    <div className="flex  md:flex-row gap-1 w-full">
                       <button
                         onClick={() => deleteHandler(task._id)}
-                        className="bg-blue-700 px-2 py-1 rounded-sm text-white hover:bg-blue-900 hover:shadow-md"
+                        className="bg-primary w-full px-2 rounded-md text-white hover:bg-warning hover:shadow-md"
                         size="sm"
                       >
                         Delete
                       </button>
+
                       <button
-                        className="bg-blue-700 px-2 py-1 rounded-sm text-white hover:bg-blue-900 hover:shadow-md"
+                       onClick={()=>editHandler(task._id)}
+                        className="bg-red-700 px-2 w-full  rounded-md text-white hover:bg-blue-900 hover:shadow-md"
+                        size="sm"
+                      >
+                        Edit
+                      </button>
+
+                      <button
                         onClick={() => completeHandler(task._id)}
+                        className="bg-amber-400 px-2 w-full  rounded-md text-white hover:bg-blue-900 hover:shadow-md"
+                        size="sm"
                       >
                         Completed
                       </button>
+
                     </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
 
 
-          {/* task update  */}
+<Fragment>
+  <Dialog open={open} handler={handleOpen}>
+    <DialogHeader>Update Task</DialogHeader>
+    <DialogBody divider>
+      <Card className="w-full mt-5">
+        <CardBody className="flex flex-col gap-4">
+          <form >
+            <Input
+              type="text"
+              label="Task name"
+              name="taskname" defaultValue={editTask?.taskName}
+              className="w-full" onBlur={onChangeHandler}
+            />
+            <div className="mt-5 flex justify-end">
+              <Button
+                variant="text"
+                color="red"
+                onClick={handleOpen}
+                className="mr-1"
+              >
+                <span>Cancel</span>
+              </Button>
 
-      <Fragment>
-        <Dialog open={open} handler={handleOpen}>
-          <DialogHeader>Update Task</DialogHeader>
-          <DialogBody divider>
-            <Card className="w-full mt-5">
-              <CardBody className="flex flex-col gap-4">
-                <form >
-                  <Input
-                    type="text"
-                    label="Task name"
-                    name="taskname" defaultValue={editTask?.taskName}
-                    className="w-full" onBlur={onChangeHandler}
-                  />
-                  <div className="mt-5 flex justify-end">
-                    <Button
-                      variant="text"
-                      color="red"
-                      onClick={handleOpen}
-                      className="mr-1"
-                    >
-                      <span>Cancel</span>
-                    </Button>
+              <Button
+                onClick={()=>updateHandler(editTask._id)}
+                variant="gradient"
+                color="green"
+              >
+                <span>Update</span>
+              </Button>
+            </div>
+          </form>
+        </CardBody>
+      </Card>
+    </DialogBody>
+  </Dialog>
+</Fragment>
 
-                    <Button
-                      onClick={()=>updateHandler(editTask._id)}
-                      variant="gradient"
-                      color="green"
-                    >
-                      <span>Update</span>
-                    </Button>
-                  </div>
-                </form>
-              </CardBody>
-            </Card>
-          </DialogBody>
-        </Dialog>
-      </Fragment>
     </div>
   );
 };

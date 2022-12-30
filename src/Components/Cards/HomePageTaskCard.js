@@ -45,7 +45,7 @@ const HomePageTaskCard = () => {
             })
     }
   return (
-    <Card className="w-96 mt-10">
+    <Card className="w-96 mt-48 md:mt-60 h-40">
       <CardHeader
         variant="gradient"
         color="blue"

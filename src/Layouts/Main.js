@@ -4,7 +4,7 @@ import Header from '../Components/Header/Header';
 
 const Main = () => {
     return (
-        <div className='border  bg-light-blue-100 h-screen'>
+        <div className='bg-deep-purple-400'>
             <Header/>
             <Outlet/>
 
