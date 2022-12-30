@@ -8,7 +8,7 @@ import {
   Input,
   Button,
 } from "@material-tailwind/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
 import { toast } from "react-hot-toast";
 
@@ -16,7 +16,11 @@ const Login = () => {
 
     const {loginUserWithEmailPassword,loginWithGoogle} = useContext(AuthContext);
     const [loginError,setLoginError] = useState("");
+
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
     const submitHandler= (e)=>{
         e.preventDefault();
         setLoginError("");
@@ -28,7 +32,7 @@ const Login = () => {
          loginUserWithEmailPassword(email,password)
          .then(result=>{
             toast.success("Login Success");
-            navigate('/');
+            navigate(from,{replace:true})
          })
          .catch(error=>{
             setLoginError(error.message)
@@ -40,7 +44,7 @@ const Login = () => {
          loginWithGoogle()
          .then(result=>{
           toast.success("Login Success");
-          navigate('/');
+          navigate(from,{replace:true})
        })
        .catch(error=>{
           setLoginError(error.message)

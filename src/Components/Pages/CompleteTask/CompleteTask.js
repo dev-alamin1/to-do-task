@@ -3,6 +3,7 @@ import React from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../Loading/Loading";
+import { FaTasks ,FaCommentAlt} from 'react-icons/fa';
 
 const CompleteTask = () => {
   const navigate = useNavigate();
@@ -100,8 +101,8 @@ const CompleteTask = () => {
                 className="card mx-auto w-80 md:w-96 bg-base-100 shadow-xl mb-4"
               >
                 <div className="card-body">
-                  <h2 className="card-title">{task.taskName}</h2>
-                  {task?.comment ? <p>{task.comment}</p> : <p></p>}
+                  <h2 className="card-title"><FaTasks/>{task.taskName}</h2>
+                  {task?.comment ? <div className="flex gap-2 items-center"><FaCommentAlt/> {task.comment}</div> : <p></p>}
                   <div className="card-actions">
                     <div className="w-full">
                       <form onSubmit={commentHandler}>

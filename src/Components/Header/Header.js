@@ -78,6 +78,18 @@ const Header = () => {
         </Link>
       </Typography>
 
+     
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <Link to={"/media-task"} className="flex items-center">
+           Media
+        </Link>
+      </Typography>
+
 
       {
         user?.email ? 
@@ -120,7 +132,9 @@ const Header = () => {
   return (
     <Navbar className="mx-auto  py-2  lg:py-4">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-         <Link to={"/"}>To-do Task</Link>
+         <Link to={"/"} style={{fontFamily:'Lobster',letterSpacing:'2px'}} className="font-bold text-2xl text-orange-600">
+            Todo Note
+         </Link>
         <div className="hidden lg:block">{navList}</div>
 
         

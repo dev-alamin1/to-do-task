@@ -13,7 +13,7 @@ const AuthProvider = ({children}) => {
 
     const [loading,setLoading] = useState(true);
 
-    const googleProdiver = new GoogleAuthProvider;
+    const googleProdiver = new GoogleAuthProvider();
 
     //register with email and password
 
@@ -32,12 +32,14 @@ const AuthProvider = ({children}) => {
     // login with google 
 
     const loginWithGoogle = ()=>{
+        setLoading(true);
         return signInWithPopup(auth,googleProdiver);
     }
 
     //logout user
 
     const logOutUser = ()=>{
+        setLoading(true);
         return signOut(auth);
     }
 
@@ -56,7 +58,7 @@ const AuthProvider = ({children}) => {
     },[]);
 
     const authInfo = {user,registerWithEmailPassword,
-        logOutUser,loginUserWithEmailPassword,loginWithGoogle}
+        logOutUser,loginUserWithEmailPassword,loginWithGoogle,loading}
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

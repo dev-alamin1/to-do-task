@@ -14,6 +14,7 @@ import {
   Input,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import { BsListTask } from 'react-icons/bs';
 
 
 
@@ -136,7 +137,7 @@ const MyTask = () => {
                 className="card mx-auto w-80 md:w-96 bg-base-100 shadow-xl mb-4"
               >
                 <div className="card-body">
-                  <h2 className="card-title">{task.taskName}</h2>
+                  <h2 className="card-title"><BsListTask/>{task.taskName}</h2>
                   {task?.comment ? <p>{task.comment}</p> : <p></p>}
                   <div className="card-actions">
 
