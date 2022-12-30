@@ -37,7 +37,7 @@ const Register = () => {
     }
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center h-screen">
       <Card className="w-96 mt-10">
         <CardHeader
           variant="gradient"

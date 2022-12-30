@@ -14,7 +14,7 @@ import { toast } from "react-hot-toast";
 
 const Login = () => {
 
-    const {loginUserWithEmailPassword} = useContext(AuthContext);
+    const {loginUserWithEmailPassword,loginWithGoogle} = useContext(AuthContext);
     const [loginError,setLoginError] = useState("");
     const navigate = useNavigate();
     const submitHandler= (e)=>{
@@ -36,8 +36,19 @@ const Login = () => {
 
     }
 
+    const googleLoginHandler = ()=>{
+         loginWithGoogle()
+         .then(result=>{
+          toast.success("Login Success");
+          navigate('/');
+       })
+       .catch(error=>{
+          setLoginError(error.message)
+       });
+    }
+
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center h-screen">
       <Card className="w-96 mt-10">
         <CardHeader
           variant="gradient"
@@ -57,13 +68,19 @@ const Login = () => {
           <Input label="Password" type="password" name="password" size="lg" />
         </CardBody>
         <CardFooter className="pt-0">
-          <Button type="submit" variant="gradient" fullWidth>
+            <Button type="submit" variant="gradient" fullWidth>
             Log In
           </Button>
+
+          <Button onClick={googleLoginHandler} variant="gradient" fullWidth className="mt-2">
+            Login with Google
+          </Button>
+
+
           <Typography variant="small" className="mt-6 flex justify-center">
             Don't have an account?
             
-              <Link className="text-blue-500 font-semibold" to="/register">Register </Link>
+              <Link className="text-blue-500 font-semibold" to="/register"> Register </Link>
             
           </Typography>
 
