@@ -80,7 +80,7 @@ const MyTask = () => {
   const [open, setOpen] = useState(false);
   const [taskName, setTaskName] = useState(""); //its use for taskname update
 
-  const handleOpen = (id) => setOpen(!open);
+  // const handleOpen = (id) => setOpen(!open);
 
   const onChangeHandler = (e)=>{
 
@@ -89,13 +89,15 @@ const MyTask = () => {
 
   }
 
-  console.log(taskName)
 
-  const updateHandler = (id) => {
-      setOpen(!open);
+  const handleOpen = () => setOpen(!open);
 
+  // update from modal 
+  const updateHandler =()=>{
+       
+          const id = editTask._id;
           const taskInfo ={
-              taskName
+              taskName 
            }
 
         fetch(`https://todo-task-list-server.vercel.app/update-task/${id}`,{
@@ -147,13 +149,8 @@ const MyTask = () => {
                         Delete
                       </button>
 
-                      <button
-                       onClick={()=>editHandler(task._id)}
-                        className="bg-red-700 px-2 w-full  rounded-md text-white hover:bg-blue-900 hover:shadow-md"
-                        size="sm"
-                      >
-                        Edit
-                      </button>
+
+                      <label onClick={()=>editHandler(task._id)} htmlFor="my-modal-3" className="bg-red-700 px-2 w-full  rounded-md text-white hover:bg-blue-900 hover:shadow-md">Edit</label>
 
                       <button
                         onClick={() => completeHandler(task._id)}
@@ -174,43 +171,34 @@ const MyTask = () => {
       </div>
 
 
-<Fragment>
-  <Dialog open={open} handler={handleOpen}>
-    <DialogHeader>Update Task</DialogHeader>
-    <DialogBody divider>
-      <Card className="w-full mt-5">
-        <CardBody className="flex flex-col gap-4">
-          <form >
-            <Input
-              type="text"
-              label="Task name"
-              name="taskname" defaultValue={editTask?.taskName}
-              className="w-full" onBlur={onChangeHandler}
-            />
-            <div className="mt-5 flex justify-end">
-              <Button
-                variant="text"
-                color="red"
-                onClick={handleOpen}
-                className="mr-1"
-              >
-                <span>Cancel</span>
-              </Button>
 
-              <Button
-                onClick={()=>updateHandler(editTask._id)}
-                variant="gradient"
-                color="green"
-              >
-                <span>Update</span>
-              </Button>
-            </div>
-          </form>
-        </CardBody>
-      </Card>
-    </DialogBody>
-  </Dialog>
-</Fragment>
+
+{/* Put this part before </body> tag */}
+<input type="checkbox" id="my-modal-3" className="modal-toggle" />
+<div className="modal">
+  <div className="modal-box relative">
+    
+    
+   
+    <div className="form-control">
+          <label className="label">
+            <span className="label-text">Edit Task</span>
+          </label>
+          <input type="text"  name="taskname" onBlur={onChangeHandler}  placeholder="email" defaultValue={editTask?.taskName} className="input input-bordered" />
+
+      </div>
+
+      <div className="flex justify-end gap-2 mt-2">
+
+      <label htmlFor="my-modal-3" onClick={updateHandler} className="bg-amber-800 text-white  px-2 py-1 rounded-md"><p className="text-center">Update</p></label>
+      
+        <label htmlFor="my-modal-3" className="bg-light-green-400 text-white px-2 py-1 rounded-md">Cancel</label>
+      </div>
+
+  
+
+  </div>
+</div>
 
     </div>
   );
