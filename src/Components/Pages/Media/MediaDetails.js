@@ -35,11 +35,16 @@ const MediaDetails = () => {
         </Typography>
       </CardBody>
       <CardFooter divider className="grid grid-cols-2 items-center justify-between gap-2 py-3">
-               <button className="bg-primary w-full px-2 rounded-md text-white hover:bg-blue-700 hover:shadow-md"
+               
+                 <Link to={`/media-update/${taskInfo._id}`}>
+                 <button className="bg-primary w-full px-2 rounded-md text-white hover:bg-blue-700 hover:shadow-md"
                             size="sm"
                           >
                             Update
                  </button>
+                 </Link>
+
+                 
 
                  <Link to={'/media-task'}>
                  <button className="bg-secondary w-full px-2 rounded-md text-white hover:bg-warning hover:shadow-md"
